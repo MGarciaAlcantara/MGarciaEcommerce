@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d8985b91775749b79b62649ea52e8db2" Name="Diagram1">
+        <EntityTypeShape EntityType="MGarciaEcommerceModel.Area" Width="1.5" PointX="0.5" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MGarciaEcommerceModel.Departamento" Width="1.5" PointX="3.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MGarciaEcommerceModel.MetodoPago" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MGarciaEcommerceModel.Producto" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MGarciaEcommerceModel.Proveedor" Width="1.5" PointX="8.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MGarciaEcommerceModel.Venta" Width="1.5" PointX="3.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MGarciaEcommerceModel.VentaProducto" Width="1.5" PointX="6.25" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="MGarciaEcommerceModel.FK_IdArea" ManuallyRouted="false" />
+        <AssociationConnector Association="MGarciaEcommerceModel.FK_IdDepartamento" ManuallyRouted="false" />
+        <AssociationConnector Association="MGarciaEcommerceModel.FK_IdMetodoPago" ManuallyRouted="false" />
+        <AssociationConnector Association="MGarciaEcommerceModel.FK_IdProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="MGarciaEcommerceModel.FK_IdProveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="MGarciaEcommerceModel.FK_IdVenta" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MGarciaEcommerceModel.Rol" Width="1.5" PointX="0.75" PointY="10" />
+        <EntityTypeShape EntityType="MGarciaEcommerceModel.Usuario" Width="1.5" PointX="3" PointY="9" />
+        <AssociationConnector Association="MGarciaEcommerceModel.FK__Usuario__IdRol__74AE54BC" />
+        <EntityTypeShape EntityType="MGarciaEcommerceModel.Cliente" Width="1.5" PointX="1.25" PointY="0.75" />
+        <AssociationConnector Association="MGarciaEcommerceModel.FK_IdCliente" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

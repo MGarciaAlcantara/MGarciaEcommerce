@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MGarciaEcommerceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="IdArea" />
+    </Key>
+    <Property Name="IdArea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Departamento" Relationship="Self.FK_IdArea" FromRole="Area" ToRole="Departamento" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoMaterni" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RFC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Venta" Relationship="Self.FK_IdCliente" FromRole="Cliente" ToRole="Venta" />
+  </EntityType>
+  <EntityType Name="Departamento">
+    <Key>
+      <PropertyRef Name="IdDepartamento" />
+    </Key>
+    <Property Name="IdDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IdArea" Type="Int32" />
+    <NavigationProperty Name="Area" Relationship="Self.FK_IdArea" FromRole="Departamento" ToRole="Area" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK_IdDepartamento" FromRole="Departamento" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="MetodoPago">
+    <Key>
+      <PropertyRef Name="IdMetodoPago" />
+    </Key>
+    <Property Name="IdMetodoPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Metodo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Venta" Relationship="Self.FK_IdMetodoPago" FromRole="MetodoPago" ToRole="Venta" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="Precio" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Stock" Type="Byte" />
+    <Property Name="IdProveedor" Type="Int32" />
+    <Property Name="IdDepartamento" Type="Int32" />
+    <Property Name="Descripcion" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Departamento" Relationship="Self.FK_IdDepartamento" FromRole="Producto" ToRole="Departamento" />
+    <NavigationProperty Name="VentaProducto" Relationship="Self.FK_IdProducto" FromRole="Producto" ToRole="VentaProducto" />
+    <NavigationProperty Name="Proveedor" Relationship="Self.FK_IdProveedor" FromRole="Producto" ToRole="Proveedor" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="IdProveedor" />
+    </Key>
+    <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoPaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoMaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK_IdProveedor" FromRole="Proveedor" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Venta">
+    <Key>
+      <PropertyRef Name="IdVenta" />
+    </Key>
+    <Property Name="IdVenta" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdCliente" Type="Int32" />
+    <Property Name="Total" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="IdMetodoPago" Type="Int32" />
+    <Property Name="Fecha" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_IdCliente" FromRole="Venta" ToRole="Cliente" />
+    <NavigationProperty Name="MetodoPago" Relationship="Self.FK_IdMetodoPago" FromRole="Venta" ToRole="MetodoPago" />
+    <NavigationProperty Name="VentaProducto" Relationship="Self.FK_IdVenta" FromRole="Venta" ToRole="VentaProducto" />
+  </EntityType>
+  <EntityType Name="VentaProducto">
+    <Key>
+      <PropertyRef Name="IdVentaProducto" />
+    </Key>
+    <Property Name="IdVentaProducto" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdVenta" Type="Byte" />
+    <Property Name="Cantidad" Type="Int32" />
+    <Property Name="IdProducto" Type="Int32" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK_IdProducto" FromRole="VentaProducto" ToRole="Producto" />
+    <NavigationProperty Name="Venta" Relationship="Self.FK_IdVenta" FromRole="VentaProducto" ToRole="Venta" />
+  </EntityType>
+  <Association Name="FK_IdArea">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="Departamento" Type="Self.Departamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Departamento">
+        <PropertyRef Name="IdArea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdCliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="IdCliente" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdDepartamento">
+    <End Role="Departamento" Type="Self.Departamento" Multiplicity="0..1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departamento">
+        <PropertyRef Name="IdDepartamento" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdDepartamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdMetodoPago">
+    <End Role="MetodoPago" Type="Self.MetodoPago" Multiplicity="0..1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MetodoPago">
+        <PropertyRef Name="IdMetodoPago" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="IdMetodoPago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdProducto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+    <End Role="VentaProducto" Type="Self.VentaProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="VentaProducto">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdProveedor">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdVenta">
+    <End Role="Venta" Type="Self.Venta" Multiplicity="0..1" />
+    <End Role="VentaProducto" Type="Self.VentaProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venta">
+        <PropertyRef Name="IdVenta" />
+      </Principal>
+      <Dependent Role="VentaProducto">
+        <PropertyRef Name="IdVenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MGarciaEcommerceEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Area" EntityType="Self.Area" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+    <EntitySet Name="Departamento" EntityType="Self.Departamento" />
+    <EntitySet Name="MetodoPago" EntityType="Self.MetodoPago" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" />
+    <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
+    <EntitySet Name="Venta" EntityType="Self.Venta" />
+    <EntitySet Name="VentaProducto" EntityType="Self.VentaProducto" />
+    <AssociationSet Name="FK_IdArea" Association="Self.FK_IdArea">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="Departamento" EntitySet="Departamento" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdCliente" Association="Self.FK_IdCliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Venta" EntitySet="Venta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdDepartamento" Association="Self.FK_IdDepartamento">
+      <End Role="Departamento" EntitySet="Departamento" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdMetodoPago" Association="Self.FK_IdMetodoPago">
+      <End Role="MetodoPago" EntitySet="MetodoPago" />
+      <End Role="Venta" EntitySet="Venta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdProducto" Association="Self.FK_IdProducto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="VentaProducto" EntitySet="VentaProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdProveedor" Association="Self.FK_IdProveedor">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdVenta" Association="Self.FK_IdVenta">
+      <End Role="Venta" EntitySet="Venta" />
+      <End Role="VentaProducto" EntitySet="VentaProducto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

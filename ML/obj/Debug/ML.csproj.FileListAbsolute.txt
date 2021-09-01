@@ -1,0 +1,5 @@
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\ML\bin\Debug\ML.dll
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\ML\bin\Debug\ML.pdb
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\ML\obj\Debug\ML.dll
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\ML\obj\Debug\ML.pdb
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\ML\obj\Debug\ML.csprojResolveAssemblyReference.cache

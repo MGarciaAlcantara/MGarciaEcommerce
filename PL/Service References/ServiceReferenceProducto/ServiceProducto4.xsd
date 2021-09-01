@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1495/ServiceProducto.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ML" />
+  <xs:import schemaLocation="http://localhost:1495/ServiceProducto.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/SL_WCF" />
+  <xs:element name="AddProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ML" minOccurs="0" name="producto" nillable="true" type="q1:Producto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SL_WCF" minOccurs="0" name="AddProductoResult" nillable="true" type="q2:Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ML" minOccurs="0" name="producto" nillable="true" type="q3:Producto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SL_WCF" minOccurs="0" name="UpdateProductoResult" nillable="true" type="q4:Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IdProducto" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SL_WCF" minOccurs="0" name="DeleteProductoResult" nillable="true" type="q5:Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllProducto">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SL_WCF" minOccurs="0" name="GetAllProductoResult" nillable="true" type="q6:Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetByIdProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IdProducto" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetByIdProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/SL_WCF" minOccurs="0" name="GetByIdProductoResult" nillable="true" type="q7:Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

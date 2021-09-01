@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MGarciaEcommerceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="IdArea" />
+    </Key>
+    <Property Name="IdArea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Departamento" Relationship="Self.FK_IdArea" FromRole="Area" ToRole="Departamento" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoMaterni" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RFC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Venta" Relationship="Self.FK_IdCliente" FromRole="Cliente" ToRole="Venta" />
+  </EntityType>
+  <EntityType Name="Departamento">
+    <Key>
+      <PropertyRef Name="IdDepartamento" />
+    </Key>
+    <Property Name="IdDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IdArea" Type="Int32" />
+    <NavigationProperty Name="Area" Relationship="Self.FK_IdArea" FromRole="Departamento" ToRole="Area" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK_IdDepartamento" FromRole="Departamento" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="MetodoPago">
+    <Key>
+      <PropertyRef Name="IdMetodoPago" />
+    </Key>
+    <Property Name="IdMetodoPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Metodo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Venta" Relationship="Self.FK_IdMetodoPago" FromRole="MetodoPago" ToRole="Venta" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="Precio" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Stock" Type="Byte" />
+    <Property Name="IdProveedor" Type="Int32" />
+    <Property Name="IdDepartamento" Type="Int32" />
+    <Property Name="Descripcion" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Departamento" Relationship="Self.FK_IdDepartamento" FromRole="Producto" ToRole="Departamento" />
+    <NavigationProperty Name="VentaProducto" Relationship="Self.FK_IdProducto" FromRole="Producto" ToRole="VentaProducto" />
+    <NavigationProperty Name="Proveedor" Relationship="Self.FK_IdProveedor" FromRole="Producto" ToRole="Proveedor" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="IdProveedor" />
+    </Key>
+    <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoPaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoMaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK_IdProveedor" FromRole="Proveedor" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Venta">
+    <Key>
+      <PropertyRef Name="IdVenta" />
+    </Key>
+    <Property Name="IdVenta" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdCliente" Type="Int32" />
+    <Property Name="Total" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="IdMetodoPago" Type="Int32" />
+    <Property Name="Fecha" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_IdCliente" FromRole="Venta" ToRole="Cliente" />
+    <NavigationProperty Name="MetodoPago" Relationship="Self.FK_IdMetodoPago" FromRole="Venta" ToRole="MetodoPago" />
+    <NavigationProperty Name="VentaProducto" Relationship="Self.FK_IdVenta" FromRole="Venta" ToRole="VentaProducto" />
+  </EntityType>
+  <EntityType Name="VentaProducto">
+    <Key>
+      <PropertyRef Name="IdVentaProducto" />
+    </Key>
+    <Property Name="IdVentaProducto" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdVenta" Type="Byte" />
+    <Property Name="Cantidad" Type="Int32" />
+    <Property Name="IdProducto" Type="Int32" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK_IdProducto" FromRole="VentaProducto" ToRole="Producto" />
+    <NavigationProperty Name="Venta" Relationship="Self.FK_IdVenta" FromRole="VentaProducto" ToRole="Venta" />
+  </EntityType>
+  <Association Name="FK_IdArea">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="Departamento" Type="Self.Departamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Departamento">
+        <PropertyRef Name="IdArea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdCliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="IdCliente" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdDepartamento">
+    <End Role="Departamento" Type="Self.Departamento" Multiplicity="0..1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departamento">
+        <PropertyRef Name="IdDepartamento" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdDepartamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdMetodoPago">
+    <End Role="MetodoPago" Type="Self.MetodoPago" Multiplicity="0..1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MetodoPago">
+        <PropertyRef Name="IdMetodoPago" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="IdMetodoPago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdProducto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+    <End Role="VentaProducto" Type="Self.VentaProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="VentaProducto">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdProveedor">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IdVenta">
+    <End Role="Venta" Type="Self.Venta" Multiplicity="0..1" />
+    <End Role="VentaProducto" Type="Self.VentaProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venta">
+        <PropertyRef Name="IdVenta" />
+      </Principal>
+      <Dependent Role="VentaProducto">
+        <PropertyRef Name="IdVenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MGarciaEcommerceEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Area" EntityType="Self.Area" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+    <EntitySet Name="Departamento" EntityType="Self.Departamento" />
+    <EntitySet Name="MetodoPago" EntityType="Self.MetodoPago" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" />
+    <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Venta" EntityType="Self.Venta" />
+    <EntitySet Name="VentaProducto" EntityType="Self.VentaProducto" />
+    <AssociationSet Name="FK_IdArea" Association="Self.FK_IdArea">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="Departamento" EntitySet="Departamento" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdCliente" Association="Self.FK_IdCliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Venta" EntitySet="Venta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdDepartamento" Association="Self.FK_IdDepartamento">
+      <End Role="Departamento" EntitySet="Departamento" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdMetodoPago" Association="Self.FK_IdMetodoPago">
+      <End Role="MetodoPago" EntitySet="MetodoPago" />
+      <End Role="Venta" EntitySet="Venta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdProducto" Association="Self.FK_IdProducto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="VentaProducto" EntitySet="VentaProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdProveedor" Association="Self.FK_IdProveedor">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IdVenta" Association="Self.FK_IdVenta">
+      <End Role="Venta" EntitySet="Venta" />
+      <End Role="VentaProducto" EntitySet="VentaProducto" />
+    </AssociationSet>
+    <FunctionImport Name="DepartamentoAdd">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="IdArea" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DepartamentoDelete">
+      <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DepartamentoGetAll" ReturnType="Collection(MGarciaEcommerceModel.DepartamentoGetAll_Result)" />
+    <FunctionImport Name="DepartamentoUpdate">
+      <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="IdArea" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProductoAdd">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Precio" Mode="In" Type="Decimal" />
+      <Parameter Name="Stock" Mode="In" Type="Byte" />
+      <Parameter Name="IdProveedor" Mode="In" Type="Int32" />
+      <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ProductoDelete">
+      <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProductoGetAll" ReturnType="Collection(MGarciaEcommerceModel.ProductoGetAll_Result)" />
+    <FunctionImport Name="ProductoGetById" ReturnType="Collection(MGarciaEcommerceModel.ProductoGetById_Result)">
+      <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProductoUpdate">
+      <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Precio" Mode="In" Type="Decimal" />
+      <Parameter Name="Stock" Mode="In" Type="Byte" />
+      <Parameter Name="IdProveedor" Mode="In" Type="Int32" />
+      <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(MGarciaEcommerceModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(MGarciaEcommerceModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="VentaAdd" ReturnType="Collection(Int32)">
+      <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+      <Parameter Name="Total" Mode="In" Type="Decimal" />
+      <Parameter Name="IdMetodoPago" Mode="In" Type="Int32" />
+      <Parameter Name="IdVenta" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="VentaProductoAdd">
+      <Parameter Name="IdVenta" Mode="In" Type="Byte" />
+      <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+      <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="DepartamentoGetAll_Result">
+    <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="IdArea" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="ProductoGetAll_Result">
+    <Property Type="Int32" Name="IdProducto" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="35" />
+    <Property Type="Decimal" Name="Precio" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Byte" Name="Stock" Nullable="true" />
+    <Property Type="Int32" Name="IdProveedor" Nullable="true" />
+    <Property Type="Int32" Name="IdDepartamento" Nullable="true" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="35" />
+  </ComplexType>
+  <ComplexType Name="ProductoGetById_Result">
+    <Property Type="Int32" Name="IdProducto" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="35" />
+    <Property Type="Decimal" Name="Precio" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Byte" Name="Stock" Nullable="true" />
+    <Property Type="Int32" Name="IdProveedor" Nullable="true" />
+    <Property Type="Int32" Name="IdDepartamento" Nullable="true" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="35" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

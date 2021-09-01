@@ -1,0 +1,9 @@
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\DL\bin\Debug\DL.dll.config
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\DL\bin\Debug\DL.dll
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\DL\bin\Debug\DL.pdb
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\DL\bin\Debug\EntityFramework.dll
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\DL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\DL\bin\Debug\EntityFramework.xml
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\DL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\DL\obj\Debug\DL.dll
+C:\Users\digis\Documents\MGarcia\MGarciaEcommerce0306\DL\obj\Debug\DL.pdb

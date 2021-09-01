@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MGarciaEcommerceModelStoreContainer" CdmEntityContainer="MGarciaEcommerceEntities">
+    <EntitySetMapping Name="Area">
+      <EntityTypeMapping TypeName="MGarciaEcommerceModel.Area">
+        <MappingFragment StoreEntitySet="Area">
+          <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="MGarciaEcommerceModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+          <ScalarProperty Name="ApellidoMaterni" ColumnName="ApellidoMaterni" />
+          <ScalarProperty Name="RFC" ColumnName="RFC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departamento">
+      <EntityTypeMapping TypeName="MGarciaEcommerceModel.Departamento">
+        <MappingFragment StoreEntitySet="Departamento">
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MetodoPago">
+      <EntityTypeMapping TypeName="MGarciaEcommerceModel.MetodoPago">
+        <MappingFragment StoreEntitySet="MetodoPago">
+          <ScalarProperty Name="IdMetodoPago" ColumnName="IdMetodoPago" />
+          <ScalarProperty Name="Metodo" ColumnName="Metodo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="MGarciaEcommerceModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proveedor">
+      <EntityTypeMapping TypeName="MGarciaEcommerceModel.Proveedor">
+        <MappingFragment StoreEntitySet="Proveedor">
+          <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+          <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="MGarciaEcommerceModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Venta">
+      <EntityTypeMapping TypeName="MGarciaEcommerceModel.Venta">
+        <MappingFragment StoreEntitySet="Venta">
+          <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="IdMetodoPago" ColumnName="IdMetodoPago" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VentaProducto">
+      <EntityTypeMapping TypeName="MGarciaEcommerceModel.VentaProducto">
+        <MappingFragment StoreEntitySet="VentaProducto">
+          <ScalarProperty Name="IdVentaProducto" ColumnName="IdVentaProducto" />
+          <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="DepartamentoAdd" FunctionName="MGarciaEcommerceModel.Store.DepartamentoAdd" />
+    <FunctionImportMapping FunctionImportName="DepartamentoDelete" FunctionName="MGarciaEcommerceModel.Store.DepartamentoDelete" />
+    <FunctionImportMapping FunctionImportName="DepartamentoGetAll" FunctionName="MGarciaEcommerceModel.Store.DepartamentoGetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MGarciaEcommerceModel.DepartamentoGetAll_Result">
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DepartamentoUpdate" FunctionName="MGarciaEcommerceModel.Store.DepartamentoUpdate" />
+    <FunctionImportMapping FunctionImportName="ProductoAdd" FunctionName="MGarciaEcommerceModel.Store.ProductoAdd" />
+    <FunctionImportMapping FunctionImportName="ProductoDelete" FunctionName="MGarciaEcommerceModel.Store.ProductoDelete" />
+    <FunctionImportMapping FunctionImportName="ProductoGetAll" FunctionName="MGarciaEcommerceModel.Store.ProductoGetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MGarciaEcommerceModel.ProductoGetAll_Result">
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProductoGetById" FunctionName="MGarciaEcommerceModel.Store.ProductoGetById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MGarciaEcommerceModel.ProductoGetById_Result">
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProductoUpdate" FunctionName="MGarciaEcommerceModel.Store.ProductoUpdate" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="MGarciaEcommerceModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="MGarciaEcommerceModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="MGarciaEcommerceModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="MGarciaEcommerceModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MGarciaEcommerceModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="MGarciaEcommerceModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MGarciaEcommerceModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="MGarciaEcommerceModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="MGarciaEcommerceModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="VentaAdd" FunctionName="MGarciaEcommerceModel.Store.VentaAdd" />
+    <FunctionImportMapping FunctionImportName="VentaProductoAdd" FunctionName="MGarciaEcommerceModel.Store.VentaProductoAdd" />
+  </EntityContainerMapping>
+</Mapping>

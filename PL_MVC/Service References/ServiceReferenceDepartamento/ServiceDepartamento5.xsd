@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1495/ServiceDepartamento.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ML" />
+  <xs:import schemaLocation="http://localhost:1495/ServiceDepartamento.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/SL_WCF" />
+  <xs:element name="AddDepartamento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ML" minOccurs="0" name="departamento" nillable="true" type="q1:Departamento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddDepartamentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SL_WCF" minOccurs="0" name="AddDepartamentoResult" nillable="true" type="q2:Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateDepartamento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ML" minOccurs="0" name="departamento" nillable="true" type="q3:Departamento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateDepartamentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SL_WCF" minOccurs="0" name="UpdateDepartamentoResult" nillable="true" type="q4:Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteDepartamento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IdDepartamento" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteDepartamentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SL_WCF" minOccurs="0" name="DeleteDepartamentoResult" nillable="true" type="q5:Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllDepartamento">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllDepartamentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SL_WCF" minOccurs="0" name="GetAllDepartamentoResult" nillable="true" type="q6:Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetByIdDepartamento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IdDepartamento" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetByIdDepartamentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/SL_WCF" minOccurs="0" name="GetByIdDepartamentoResult" nillable="true" type="q7:Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

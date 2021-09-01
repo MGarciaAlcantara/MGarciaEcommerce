@@ -1,0 +1,1141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MGarciaEcommerceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="IdArea" />
+          </Key>
+          <Property Name="IdArea" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="RFC" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="IdDepartamento" />
+          </Key>
+          <Property Name="IdDepartamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="IdArea" Type="int" />
+        </EntityType>
+        <EntityType Name="MetodoPago">
+          <Key>
+            <PropertyRef Name="IdMetodoPago" />
+          </Key>
+          <Property Name="IdMetodoPago" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Metodo" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="35" />
+          <Property Name="Precio" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Stock" Type="tinyint" />
+          <Property Name="IdProveedor" Type="int" />
+          <Property Name="IdDepartamento" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="35" />
+          <Property Name="Imagen" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="IdProveedor" />
+          </Key>
+          <Property Name="IdProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="100" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="100" />
+          <Property Name="Telefono" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="UsuarioPassword" Type="varchar" MaxLength="100" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="100" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="100" />
+          <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="Sexo" Type="varchar" MaxLength="2" />
+          <Property Name="UsuarioStatus" Type="bit" />
+          <Property Name="IdDireccion" Type="int" />
+          <Property Name="IdRol" Type="int" />
+          <Property Name="Telefono" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="IdVenta" />
+          </Key>
+          <Property Name="IdVenta" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCliente" Type="int" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="IdMetodoPago" Type="int" />
+          <Property Name="Fecha" Type="datetime" />
+        </EntityType>
+        <EntityType Name="VentaProducto">
+          <Key>
+            <PropertyRef Name="IdVentaProducto" />
+          </Key>
+          <Property Name="IdVentaProducto" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdVenta" Type="tinyint" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="IdProducto" Type="int" />
+        </EntityType>
+        <Association Name="FK__Usuario__IdRol__74AE54BC">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdArea">
+          <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="IdArea" />
+            </Principal>
+            <Dependent Role="Departamento">
+              <PropertyRef Name="IdArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdCliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDepartamento">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="IdDepartamento" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdMetodoPago">
+          <End Role="MetodoPago" Type="Self.MetodoPago" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MetodoPago">
+              <PropertyRef Name="IdMetodoPago" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="IdMetodoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdProducto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="VentaProducto" Type="Self.VentaProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="VentaProducto">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdProveedor">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdVenta">
+          <End Role="Venta" Type="Self.Venta" Multiplicity="0..1" />
+          <End Role="VentaProducto" Type="Self.VentaProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="IdVenta" />
+            </Principal>
+            <Dependent Role="VentaProducto">
+              <PropertyRef Name="IdVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AreaGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="AreaGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdArea" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DepartamentoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="IdArea" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DepartamentoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdDepartamento" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DepartamentoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="DepartamentoGetByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdDepartamento" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DepartamentoUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdDepartamento" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="IdArea" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProductoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Precio" Type="decimal" Mode="In" />
+          <Parameter Name="Stock" Type="tinyint" Mode="In" />
+          <Parameter Name="IdProveedor" Type="int" Mode="In" />
+          <Parameter Name="IdDepartamento" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Imagen" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="ProductoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProductoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ProductoGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProductoUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Precio" Type="decimal" Mode="In" />
+          <Parameter Name="Stock" Type="tinyint" Mode="In" />
+          <Parameter Name="IdProveedor" Type="int" Mode="In" />
+          <Parameter Name="IdDepartamento" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Imagen" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="ProveedorGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="RolAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="RolGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="UsuarioAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="UsuarioPassword" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNacimiento" Type="varchar" Mode="In" />
+          <Parameter Name="Sexo" Type="varchar" Mode="In" />
+          <Parameter Name="UsuarioStatus" Type="bit" Mode="In" />
+          <Parameter Name="IdDireccion" Type="int" Mode="In" />
+          <Parameter Name="IdRol" Type="int" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UsuarioDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUduario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuarioGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="UsuarioGetAllTest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UsuarioGetByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UsuarioGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuarioUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="UsuarioPassword" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNacimiento" Type="varchar" Mode="In" />
+          <Parameter Name="Sexo" Type="varchar" Mode="In" />
+          <Parameter Name="UsuarioStatus" Type="bit" Mode="In" />
+          <Parameter Name="IdDireccion" Type="int" Mode="In" />
+          <Parameter Name="IdRol" Type="int" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="VentaAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="Total" Type="decimal" Mode="In" />
+          <Parameter Name="IdMetodoPago" Type="int" Mode="In" />
+          <Parameter Name="IdVenta" Type="tinyint" Mode="InOut" />
+        </Function>
+        <Function Name="VentaProductoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdVenta" Type="tinyint" Mode="In" />
+          <Parameter Name="Cantidad" Type="int" Mode="In" />
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="MGarciaEcommerceModelStoreContainer">
+          <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MetodoPago" EntityType="Self.MetodoPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Venta" EntityType="Self.Venta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VentaProducto" EntityType="Self.VentaProducto" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Usuario__IdRol__74AE54BC" Association="Self.FK__Usuario__IdRol__74AE54BC">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdArea" Association="Self.FK_IdArea">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="Departamento" EntitySet="Departamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdCliente" Association="Self.FK_IdCliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDepartamento" Association="Self.FK_IdDepartamento">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdMetodoPago" Association="Self.FK_IdMetodoPago">
+            <End Role="MetodoPago" EntitySet="MetodoPago" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdProducto" Association="Self.FK_IdProducto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="VentaProducto" EntitySet="VentaProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdProveedor" Association="Self.FK_IdProveedor">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdVenta" Association="Self.FK_IdVenta">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="VentaProducto" EntitySet="VentaProducto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MGarciaEcommerceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="IdArea" />
+          </Key>
+          <Property Name="IdArea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Departamento" Relationship="Self.FK_IdArea" FromRole="Area" ToRole="Departamento" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="IdDepartamento" />
+          </Key>
+          <Property Name="IdDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdArea" Type="Int32" />
+          <NavigationProperty Name="Area" Relationship="Self.FK_IdArea" FromRole="Departamento" ToRole="Area" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_IdDepartamento" FromRole="Departamento" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="MetodoPago">
+          <Key>
+            <PropertyRef Name="IdMetodoPago" />
+          </Key>
+          <Property Name="IdMetodoPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Metodo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Venta" Relationship="Self.FK_IdMetodoPago" FromRole="MetodoPago" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Stock" Type="Byte" />
+          <Property Name="IdProveedor" Type="Int32" />
+          <Property Name="IdDepartamento" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Departamento" Relationship="Self.FK_IdDepartamento" FromRole="Producto" ToRole="Departamento" />
+          <NavigationProperty Name="VentaProducto" Relationship="Self.FK_IdProducto" FromRole="Producto" ToRole="VentaProducto" />
+          <NavigationProperty Name="Proveedor" Relationship="Self.FK_IdProveedor" FromRole="Producto" ToRole="Proveedor" />
+          <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="IdProveedor" />
+          </Key>
+          <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_IdProveedor" FromRole="Proveedor" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="IdVenta" />
+          </Key>
+          <Property Name="IdVenta" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="Int32" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IdMetodoPago" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="MetodoPago" Relationship="Self.FK_IdMetodoPago" FromRole="Venta" ToRole="MetodoPago" />
+          <NavigationProperty Name="VentaProducto" Relationship="Self.FK_IdVenta" FromRole="Venta" ToRole="VentaProducto" />
+          <NavigationProperty Name="Cliente" Relationship="MGarciaEcommerceModel.FK_IdCliente" FromRole="Venta" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="VentaProducto">
+          <Key>
+            <PropertyRef Name="IdVentaProducto" />
+          </Key>
+          <Property Name="IdVentaProducto" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdVenta" Type="Byte" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="IdProducto" Type="Int32" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_IdProducto" FromRole="VentaProducto" ToRole="Producto" />
+          <NavigationProperty Name="Venta" Relationship="Self.FK_IdVenta" FromRole="VentaProducto" ToRole="Venta" />
+        </EntityType>
+        <Association Name="FK_IdArea">
+          <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="IdArea" />
+            </Principal>
+            <Dependent Role="Departamento">
+              <PropertyRef Name="IdArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDepartamento">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="IdDepartamento" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdMetodoPago">
+          <End Role="MetodoPago" Type="Self.MetodoPago" Multiplicity="0..1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MetodoPago">
+              <PropertyRef Name="IdMetodoPago" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="IdMetodoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdProducto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="VentaProducto" Type="Self.VentaProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="VentaProducto">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdProveedor">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdVenta">
+          <End Role="Venta" Type="Self.Venta" Multiplicity="0..1" />
+          <End Role="VentaProducto" Type="Self.VentaProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="IdVenta" />
+            </Principal>
+            <Dependent Role="VentaProducto">
+              <PropertyRef Name="IdVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MGarciaEcommerceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Area" EntityType="Self.Area" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" />
+          <EntitySet Name="MetodoPago" EntityType="Self.MetodoPago" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
+          <EntitySet Name="Venta" EntityType="Self.Venta" />
+          <EntitySet Name="VentaProducto" EntityType="Self.VentaProducto" />
+          <AssociationSet Name="FK_IdArea" Association="Self.FK_IdArea">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="Departamento" EntitySet="Departamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDepartamento" Association="Self.FK_IdDepartamento">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdMetodoPago" Association="Self.FK_IdMetodoPago">
+            <End Role="MetodoPago" EntitySet="MetodoPago" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdProducto" Association="Self.FK_IdProducto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="VentaProducto" EntitySet="VentaProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdProveedor" Association="Self.FK_IdProveedor">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdVenta" Association="Self.FK_IdVenta">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="VentaProducto" EntitySet="VentaProducto" />
+          </AssociationSet>
+          <FunctionImport Name="DepartamentoAdd">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="IdArea" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DepartamentoDelete">
+          <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DepartamentoUpdate">
+            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="IdArea" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProductoDelete">
+          <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="VentaProductoAdd">
+            <Parameter Name="IdVenta" Mode="In" Type="Byte" />
+            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DepartamentoGetByID" ReturnType="Collection(MGarciaEcommerceModel.DepartamentoGetByID_Result)">
+          <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="VentaAdd">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="Total" Mode="In" Type="Decimal" />
+            <Parameter Name="IdMetodoPago" Mode="In" Type="Int32" />
+            <Parameter Name="IdVenta" Mode="InOut" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="AreaGetAll" ReturnType="Collection(MGarciaEcommerceModel.AreaGetAll_Result)" />
+          <FunctionImport Name="DepartamentoGetAll" ReturnType="Collection(MGarciaEcommerceModel.DepartamentoGetAll_Result)" />
+          <FunctionImport Name="ProveedorGetAll" ReturnType="Collection(MGarciaEcommerceModel.ProveedorGetAll_Result)" />
+          <FunctionImport Name="AreaGetById" ReturnType="Collection(MGarciaEcommerceModel.AreaGetById_Result)">
+          <Parameter Name="IdArea" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProductoAdd">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="Stock" Mode="In" Type="Byte" />
+            <Parameter Name="IdProveedor" Mode="In" Type="Int32" />
+            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Imagen" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="ProductoGetAll" ReturnType="Collection(MGarciaEcommerceModel.ProductoGetAll_Result)" />
+          <FunctionImport Name="ProductoGetById" ReturnType="Collection(MGarciaEcommerceModel.ProductoGetById_Result)">
+          <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProductoUpdate">
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="Stock" Mode="In" Type="Byte" />
+            <Parameter Name="IdProveedor" Mode="In" Type="Int32" />
+            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Imagen" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <EntitySet Name="Rol" EntityType="MGarciaEcommerceModel.Rol" />
+          <EntitySet Name="Usuario" EntityType="MGarciaEcommerceModel.Usuario" />
+          <AssociationSet Name="FK__Usuario__IdRol__74AE54BC" Association="MGarciaEcommerceModel.FK__Usuario__IdRol__74AE54BC">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <FunctionImport Name="RolAdd">
+          <Parameter Name="Nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioDelete">
+          <Parameter Name="IdUduario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="RolGetAll" ReturnType="Collection(MGarciaEcommerceModel.RolGetAll_Result)" />
+          <FunctionImport Name="UsuarioGetAll" ReturnType="Collection(MGarciaEcommerceModel.UsuarioGetAll_Result)" />
+          <FunctionImport Name="UsuarioGetById" ReturnType="Collection(MGarciaEcommerceModel.UsuarioGetById_Result)">
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioGetAllTest" ReturnType="Collection(MGarciaEcommerceModel.UsuarioGetAllTest_Result)">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Cliente" EntityType="MGarciaEcommerceModel.Cliente" />
+          <AssociationSet Name="FK_IdCliente" Association="MGarciaEcommerceModel.FK_IdCliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <FunctionImport Name="UsuarioUpdate" ReturnType="Collection(String)">
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="UsuarioPassword" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="String" />
+            <Parameter Name="Sexo" Mode="In" Type="String" />
+            <Parameter Name="UsuarioStatus" Mode="In" Type="Boolean" />
+            <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
+            <Parameter Name="IdRol" Mode="In" Type="Int32" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioAdd" ReturnType="Collection(String)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="UsuarioPassword" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="String" />
+            <Parameter Name="Sexo" Mode="In" Type="String" />
+            <Parameter Name="UsuarioStatus" Mode="In" Type="Boolean" />
+            <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
+            <Parameter Name="IdRol" Mode="In" Type="Int32" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioGetByEmail" ReturnType="Collection(MGarciaEcommerceModel.UsuarioGetByEmail_Result)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="DepartamentoGetByID_Result">
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="IdArea" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="AreaGetAll_Result">
+          <Property Type="Int32" Name="IdArea" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="DepartamentoGetAll_Result">
+          <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+          <Property Type="String" Name="DepartamentoNombre" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="IdArea" Nullable="true" />
+          <Property Type="String" Name="AreaNombre" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="ProveedorGetAll_Result">
+          <Property Type="Int32" Name="IdProveedor" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="AreaGetById_Result">
+          <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+          <Property Type="Int32" Name="IdArea" Nullable="true" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="ProductoGetAll_Result">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="NombreProducto" Nullable="true" MaxLength="35" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Byte" Name="Stock" Nullable="true" />
+          <Property Type="Int32" Name="IdDepartamento" Nullable="true" />
+          <Property Type="String" Name="DepartamentoNombre" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="IdArea" Nullable="true" />
+          <Property Type="String" Name="NombreArea" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="IdProveedor" Nullable="true" />
+          <Property Type="String" Name="NombreProveedor" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="35" />
+          <Property Type="Binary" Name="Imagen" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ProductoGetById_Result">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="NombreProducto" Nullable="true" MaxLength="35" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Byte" Name="Stock" Nullable="true" />
+          <Property Type="Int32" Name="IdDepartamento" Nullable="true" />
+          <Property Type="String" Name="DepartamentoNombre" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="IdArea" Nullable="true" />
+          <Property Type="String" Name="NombreArea" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="IdProveedor" Nullable="true" />
+          <Property Type="String" Name="NombreProveedor" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="35" />
+          <Property Type="Binary" Name="Imagen" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="MGarciaEcommerceModel.FK__Usuario__IdRol__74AE54BC" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="Sexo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioStatus" Type="Boolean" />
+          <Property Name="IdDireccion" Type="Int32" />
+          <Property Name="IdRol" Type="Int32" />
+          <Property Name="Telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Rol" Relationship="MGarciaEcommerceModel.FK__Usuario__IdRol__74AE54BC" FromRole="Usuario" ToRole="Rol" />
+        </EntityType>
+        <Association Name="FK__Usuario__IdRol__74AE54BC">
+          <End Type="MGarciaEcommerceModel.Rol" Role="Rol" Multiplicity="0..1" />
+          <End Type="MGarciaEcommerceModel.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="RolGetAll_Result">
+          <Property Type="Int32" Name="IdRol" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="UsuarioGetAll_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="UsuarioPassword" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NombreUsuario" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+          <Property Type="String" Name="Sexo" Nullable="true" MaxLength="2" />
+          <Property Type="Boolean" Name="UsuarioStatus" Nullable="true" />
+          <Property Type="Int32" Name="IdDireccion" Nullable="true" />
+          <Property Type="Int32" Name="IdRol" Nullable="false" />
+          <Property Type="String" Name="RolNombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="UsuarioGetById_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="UsuarioPassword" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NombreUsuario" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+          <Property Type="String" Name="Sexo" Nullable="true" MaxLength="2" />
+          <Property Type="Boolean" Name="UsuarioStatus" Nullable="true" />
+          <Property Type="Int32" Name="IdDireccion" Nullable="true" />
+          <Property Type="Int32" Name="IdRol" Nullable="false" />
+          <Property Type="String" Name="RolNombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="UsuarioGetAllTest_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="UsuarioPassword" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NombreUsuario" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+          <Property Type="String" Name="Sexo" Nullable="true" MaxLength="2" />
+          <Property Type="Boolean" Name="UsuarioStatus" Nullable="true" />
+          <Property Type="Int32" Name="IdDireccion" Nullable="true" />
+          <Property Type="Int32" Name="IdRol" Nullable="false" />
+          <Property Type="String" Name="RolNombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Venta" Relationship="MGarciaEcommerceModel.FK_IdCliente" FromRole="Cliente" ToRole="Venta" />
+        </EntityType>
+        <Association Name="FK_IdCliente">
+          <End Type="MGarciaEcommerceModel.Cliente" Role="Cliente" Multiplicity="0..1" />
+          <End Type="MGarciaEcommerceModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="UsuarioGetByEmail_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="UsuarioPassword" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NombreUsuario" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+          <Property Type="String" Name="Sexo" Nullable="true" MaxLength="2" />
+          <Property Type="Boolean" Name="UsuarioStatus" Nullable="true" />
+          <Property Type="Int32" Name="IdRol" Nullable="true" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NombreRol" Nullable="true" MaxLength="100" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MGarciaEcommerceModelStoreContainer" CdmEntityContainer="MGarciaEcommerceEntities">
+          <EntitySetMapping Name="Area">
+            <EntityTypeMapping TypeName="MGarciaEcommerceModel.Area">
+              <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamento">
+            <EntityTypeMapping TypeName="MGarciaEcommerceModel.Departamento">
+              <MappingFragment StoreEntitySet="Departamento">
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MetodoPago">
+            <EntityTypeMapping TypeName="MGarciaEcommerceModel.MetodoPago">
+              <MappingFragment StoreEntitySet="MetodoPago">
+                <ScalarProperty Name="IdMetodoPago" ColumnName="IdMetodoPago" />
+                <ScalarProperty Name="Metodo" ColumnName="Metodo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="MGarciaEcommerceModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proveedor">
+            <EntityTypeMapping TypeName="MGarciaEcommerceModel.Proveedor">
+              <MappingFragment StoreEntitySet="Proveedor">
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Venta">
+            <EntityTypeMapping TypeName="MGarciaEcommerceModel.Venta">
+              <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="IdMetodoPago" ColumnName="IdMetodoPago" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VentaProducto">
+            <EntityTypeMapping TypeName="MGarciaEcommerceModel.VentaProducto">
+              <MappingFragment StoreEntitySet="VentaProducto">
+                <ScalarProperty Name="IdVentaProducto" ColumnName="IdVentaProducto" />
+                <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DepartamentoAdd" FunctionName="MGarciaEcommerceModel.Store.DepartamentoAdd" />
+          <FunctionImportMapping FunctionImportName="DepartamentoDelete" FunctionName="MGarciaEcommerceModel.Store.DepartamentoDelete" />
+          <FunctionImportMapping FunctionImportName="DepartamentoUpdate" FunctionName="MGarciaEcommerceModel.Store.DepartamentoUpdate" />
+          <FunctionImportMapping FunctionImportName="ProductoDelete" FunctionName="MGarciaEcommerceModel.Store.ProductoDelete" />
+          <FunctionImportMapping FunctionImportName="VentaProductoAdd" FunctionName="MGarciaEcommerceModel.Store.VentaProductoAdd" />
+          <FunctionImportMapping FunctionImportName="DepartamentoGetByID" FunctionName="MGarciaEcommerceModel.Store.DepartamentoGetByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MGarciaEcommerceModel.DepartamentoGetByID_Result">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="VentaAdd" FunctionName="MGarciaEcommerceModel.Store.VentaAdd" />
+          <FunctionImportMapping FunctionImportName="AreaGetAll" FunctionName="MGarciaEcommerceModel.Store.AreaGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MGarciaEcommerceModel.AreaGetAll_Result">
+                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DepartamentoGetAll" FunctionName="MGarciaEcommerceModel.Store.DepartamentoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MGarciaEcommerceModel.DepartamentoGetAll_Result">
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="DepartamentoNombre" ColumnName="DepartamentoNombre" />
+                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+                <ScalarProperty Name="AreaNombre" ColumnName="AreaNombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProveedorGetAll" FunctionName="MGarciaEcommerceModel.Store.ProveedorGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MGarciaEcommerceModel.ProveedorGetAll_Result">
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AreaGetById" FunctionName="MGarciaEcommerceModel.Store.AreaGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MGarciaEcommerceModel.AreaGetById_Result">
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProductoAdd" FunctionName="MGarciaEcommerceModel.Store.ProductoAdd" />
+          <FunctionImportMapping FunctionImportName="ProductoGetAll" FunctionName="MGarciaEcommerceModel.Store.ProductoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MGarciaEcommerceModel.ProductoGetAll_Result">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="DepartamentoNombre" ColumnName="DepartamentoNombre" />
+                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+                <ScalarProperty Name="NombreArea" ColumnName="NombreArea" />
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+                <ScalarProperty Name="NombreProveedor" ColumnName="NombreProveedor" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProductoGetById" FunctionName="MGarciaEcommerceModel.Store.ProductoGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MGarciaEcommerceModel.ProductoGetById_Result">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="DepartamentoNombre" ColumnName="DepartamentoNombre" />
+                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
+                <ScalarProperty Name="NombreArea" ColumnName="NombreArea" />
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+                <ScalarProperty Name="NombreProveedor" ColumnName="NombreProveedor" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProductoUpdate" FunctionName="MGarciaEcommerceModel.Store.ProductoUpdate" />
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="MGarciaEcommerceModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="MGarciaEcommerceModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+                <ScalarProperty Name="UsuarioStatus" ColumnName="UsuarioStatus" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="UsuarioPassword" ColumnName="UsuarioPassword" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RolAdd" FunctionName="MGarciaEcommerceModel.Store.RolAdd" />
+          <FunctionImportMapping FunctionImportName="UsuarioDelete" FunctionName="MGarciaEcommerceModel.Store.UsuarioDelete" />
+          <FunctionImportMapping FunctionImportName="RolGetAll" FunctionName="MGarciaEcommerceModel.Store.RolGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MGarciaEcommerceModel.RolGetAll_Result">
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioGetAll" FunctionName="MGarciaEcommerceModel.Store.UsuarioGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MGarciaEcommerceModel.UsuarioGetAll_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UsuarioPassword" ColumnName="UsuarioPassword" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="UsuarioStatus" ColumnName="UsuarioStatus" />
+                <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="RolNombre" ColumnName="RolNombre" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioGetById" FunctionName="MGarciaEcommerceModel.Store.UsuarioGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MGarciaEcommerceModel.UsuarioGetById_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UsuarioPassword" ColumnName="UsuarioPassword" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="UsuarioStatus" ColumnName="UsuarioStatus" />
+                <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="RolNombre" ColumnName="RolNombre" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioGetAllTest" FunctionName="MGarciaEcommerceModel.Store.UsuarioGetAllTest">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MGarciaEcommerceModel.UsuarioGetAllTest_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UsuarioPassword" ColumnName="UsuarioPassword" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="UsuarioStatus" ColumnName="UsuarioStatus" />
+                <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="RolNombre" ColumnName="RolNombre" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="MGarciaEcommerceModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioUpdate" FunctionName="MGarciaEcommerceModel.Store.UsuarioUpdate" />
+          <FunctionImportMapping FunctionImportName="UsuarioAdd" FunctionName="MGarciaEcommerceModel.Store.UsuarioAdd" />
+          <FunctionImportMapping FunctionImportName="UsuarioGetByEmail" FunctionName="MGarciaEcommerceModel.Store.UsuarioGetByEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MGarciaEcommerceModel.UsuarioGetByEmail_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UsuarioPassword" ColumnName="UsuarioPassword" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="UsuarioStatus" ColumnName="UsuarioStatus" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

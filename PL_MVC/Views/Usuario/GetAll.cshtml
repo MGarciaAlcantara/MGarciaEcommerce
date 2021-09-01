@@ -1,0 +1,123 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetAll</h2>
+<div class="container">
+    <div class="row">
+        @using (Html.BeginForm("GetAll", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Nombre" })
+                @Html.ValidationMessageFor(model => model.Nombre)
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @placeholder = "Apellido Paterno" })
+                @Html.ValidationMessageFor(model => model.ApellidoPaterno)
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @placeholder = "Apellido Materno" })
+                @Html.ValidationMessageFor(model => model.ApellidoMaterno)
+            </div>
+            <input type="submit" value="Buscar" id="btnSubmit" class="btn btn-success" onclick="refresh" />
+            @*<button onclick="window.location.href=window.location.href">Refresh Page</button>*@
+
+        }
+    </div>
+</div>
+<div class="container ">
+    <div class="row">
+        <br />
+
+    </div>
+</div>
+<div class="container ">
+    <div class="row">
+        <br />
+        @using (Html.BeginForm("CargaDatos", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="archivo" />
+            <br />
+            <input type="submit" value="Cargar" class="btn btn-primary" />
+
+            <br />
+            <b>@ViewBag.mensaje</b>
+
+        }
+        @*<input type="file" name="FileUpload" />
+        <br />
+        <input type="submit" value="Cargar Datos" class="btn btn-primary" />*@
+
+        <center>
+            <div style="float:right; margin-bottom:1rem; ">
+                @Html.ActionLink("Agregar Usuario ", "Form", "Usuario", htmlAttributes: new { @class = "btn btn-primary" })
+            </div>
+        </center>
+        <table class="table table-bordered table-responsive col-md-10">
+            <thead>
+                <tr>
+                    <td>Editar</td>
+                    <td class="hidden">Idusuario</td>
+                    <td>Email</td>
+                    <td>Password</td>
+                    <td>Nombre</td>
+                    <td>ApellidoPaterno</td>
+                    <td>Apellidomaterno</td>
+                    <td>FechaNacimiento</td>
+                    <td>Sexo</td>
+                    <td> Status</td>
+                    <td>Direccion</td>
+                    <td>Rol</td>
+                    <td>Telefono</td>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ML.Usuario usuario in Model.Usuarios)
+                {
+                    <tr>
+                        <td><a class="btn btn-primary glyphicon glyphicon-edit text-center" href="@Url.Action("Form", "Usuario", new { IdUsuario=usuario.IdUsuario})"></a></td>
+                        <td class="hidden">Idusuario</td>
+                        <td>@usuario.Email</td>
+                        <td>@usuario.UsuarioPassword</td>
+                        <td>@usuario.Nombre</td>
+                        <td>@usuario.ApellidoPaterno</td>
+                        <td>@usuario.ApellidoMaterno</td>
+                        <td>@usuario.FechaNacimiento.ToShortDateString()</td>
+                        <td>@usuario.Sexo</td>
+                        @*<td>@usuario.UsuarioStatus</td>*@
+                        @if (usuario.UsuarioStatus == true)
+                        {
+                            <td><input type="image" src="data:image/jpeg;base64,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" style=" height:60px; width:90px;" onclick="location.href='@Url.Action("UpdateStatus", "Usuario",  new { IdUsuario = usuario.IdUsuario })'" /></td>
+                            @*<td>       <a href=@Url.Action("UpdateStatus", "Usuario", new { IdUsuario = usuario.IdUsuario }) class="btn btn-primary" style="font-size:medium; align-content:center;  ">
+                                <img src="../Models/ios-toggle.jpg"></a></td>*@
+
+                        }
+                        else
+                        {
+                            @*<td>       <a href=@Url.Action("UpdateStatus", "Usuario", new { IdUsuario = usuario.IdUsuario }) class="btn btn-primary" style="font-size:medium; align-content:center;  ">
+                                <img src="../Models/CSS3-Only-iOS-Switch-Button.png"></a></td>*@
+                            <td><input type="image" src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABQAAD/4QMtaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjMtYzAxMSA2Ni4xNDU2NjEsIDIwMTIvMDIvMDYtMTQ6NTY6MjcgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDUzYgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjZDQjdGN0RDMDk4MTFFMUFCRkFBMENBNzY4QkI5NzgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjZDQjdGN0VDMDk4MTFFMUFCRkFBMENBNzY4QkI5NzgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2NkNCN0Y3QkMwOTgxMUUxQUJGQUEwQ0E3NjhCQjk3OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2NkNCN0Y3Q0MwOTgxMUUxQUJGQUEwQ0E3NjhCQjk3OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pv/uAA5BZG9iZQBkwAAAAAH/2wCEAAICAgICAgICAgIDAgICAwQD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" style=" height:60px; width:90px;" onclick="location.href='@Url.Action("UpdateStatus", "Usuario", new { IdUsuario = usuario.IdUsuario})'" /></td>
+
+                        }
+
+                        <td>@usuario.IdDireccion</td>
+                        <td>@usuario.Rol.Nombre</td>
+                        <td>@usuario.Telefono</td>
+
+                        @*<td><a class="btn btn-success glyphicon glyphicon-trash text-center" href="@Url.Action("Delete", "Producto", new { IdUsuario=usuario.IdUsuario})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>*@
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+
+    </div>
+
+</div>
